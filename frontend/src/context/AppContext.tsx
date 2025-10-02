@@ -2,19 +2,22 @@ import { createContext } from "react";
 import { doctors } from "../assets/assets";
 
 interface AppContextType {
-    doctors:typeof doctors
-    
+    doctors:typeof doctors,
+    currencySymbole:string
 }
 interface AppContextProviderProps {
     children: React.ReactNode;
 }
 export const AppContext=createContext<AppContextType>({
-    doctors:[]
+    doctors:[],
+    currencySymbole:"$"
 });
 
 const AppContextProvider=({children}:AppContextProviderProps)=>{
+    const currencySymbole=`$`
    const value:AppContextType={
-    doctors
+    doctors,
+    currencySymbole
 
    }
     return(

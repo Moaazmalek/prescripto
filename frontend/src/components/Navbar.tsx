@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="flex items-centermedia query expectedcss(css-mediaqueryexpected) justify-between text-sm mb-5 py-4 border-b border-b-gray-400">
       <img
-      onClick={() => navigate("/")}
+        onClick={() => navigate("/")}
         className="w-44 cursor-pointer"
         src={assets.logo}
         alt="Prescripto Logo"
@@ -36,20 +36,34 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         {token ? (
           <div className="flex items-center gap-2 cursor-pointer group relative ">
-            <img 
-            className="w-8 rounded-full"
-            src={assets.profile_pic}
-             alt="Profile Picture" />
             <img
-            className="w-2.5"
-             src={assets.dropdown_icon} alt="" />
-             <div className="absolute top-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block right-0 ">
-                <div className="min-w-48 rounded bg-stone-100 flex flex-col gap-4 p-4 ">
-                    <p onClick={() => navigate("/my-profile")} className="hover:text-black cursor-pointer">My Profile</p>
-                    <p  onClick={() => navigate("/my-appointments")}className="hover:text-black cursor-pointer">My Appointments</p>
-                    <p onClick={() => setToken(false)} className="hover:text-black cursor-pointer">Logout</p>
-                </div>
-             </div>
+              className="w-8 rounded-full"
+              src={assets.profile_pic}
+              alt="Profile Picture"
+            />
+            <img className="w-2.5" src={assets.dropdown_icon} alt="" />
+            <div className="absolute top-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block right-0 ">
+              <div className="min-w-48 rounded bg-stone-100 flex flex-col gap-4 p-4 ">
+                <p
+                  onClick={() => navigate("/my-profile")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Profile
+                </p>
+                <p
+                  onClick={() => navigate("/my-appointments")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Appointments
+                </p>
+                <p
+                  onClick={() => setToken(false)}
+                  className="hover:text-black cursor-pointer"
+                >
+                  Logout
+                </p>
+              </div>
+            </div>
           </div>
         ) : (
           <button
@@ -60,6 +74,32 @@ const Navbar = () => {
             Create account
           </button>
         )}
+        <img
+          onClick={() => setShowMenu(true)}
+          className="w-6 md:hidden cursor-pointer"
+          src={assets.menu_icon}
+          alt="menu icon"
+        />
+        <div
+  className={`md:hidden fixed top-0 right-0 h-full z-20 bg-white transition-transform duration-300 ease-in-out
+    ${showMenu ? "translate-x-0 w-full" : "translate-x-full w-3/4"}`}
+>
+          <div className="flex items-center justify-between px-5 py-6">
+            <img
+            className="w-36"
+             src={assets.logo} alt="Logo" />
+            <img 
+            className="w-7"
+            onClick={() => setShowMenu(false)}
+            src={assets.cross_icon} alt="cross icon" />
+          </div>
+          <ul className="flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium">
+            <NavLink  to="/" onClick={() => setShowMenu(false)}><p className="px-4 py-2 rounded inline-block">HOME</p></NavLink>
+            <NavLink  to="/doctors" onClick={() => setShowMenu(false)}><p className="px-4 py-2 rounded inline-block">ALL DOCTORS</p></NavLink>
+            <NavLink  to="/about" onClick={() => setShowMenu(false)}><p className="px-4 py-2 rounded inline-block">ABOUT</p></NavLink>
+            <NavLink  to="/contact" onClick={() => setShowMenu(false)}><p className="px-4 py-2 rounded inline-block">CONTACT</p></NavLink>
+          </ul>
+        </div>
       </div>
     </div>
   );
