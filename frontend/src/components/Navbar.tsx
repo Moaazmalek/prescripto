@@ -1,12 +1,19 @@
 import { NavLink, useNavigate } from "react-router";
 import { assets } from "../assets/assets";
-import { useState } from "react";
+import {  useState } from "react";
+import { useDispatch, useSelector,  } from "react-redux";
+import type{ AppDispatch, RootState } from "../redux/store";
+import { logout } from "../redux/slices/authSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [token, setToken] = useState<boolean>(true);
-
+ const dispatch=useDispatch<AppDispatch>()
+ const {user,loading}=useSelector((state:RootState) => state.auth)
+const handleLogout=() => {
+  dispatch(logout());
+  navigate("/login")
+}
   return (
     <div className="flex items-centermedia query expectedcss(css-mediaqueryexpected) justify-between text-sm mb-5 py-4 border-b border-b-gray-400">
       <img
@@ -34,7 +41,9 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-4">
-        {token ? (
+         {loading ? (
+          <p>Loading...</p>
+         ): user ? (
           <div className="flex items-center gap-2 cursor-pointer group relative ">
             <img
               className="w-8 rounded-full"
@@ -57,7 +66,7 @@ const Navbar = () => {
                   My Appointments
                 </p>
                 <p
-                  onClick={() => setToken(false)}
+                  onClick={() => handleLogout()}
                   className="hover:text-black cursor-pointer"
                 >
                   Logout
@@ -67,7 +76,7 @@ const Navbar = () => {
           </div>
         ) : (
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/register")}
             className="bg-primary text-white px-8 py-3 rounded-full
             font-light hidden md:block cursor-pointer"
           >
